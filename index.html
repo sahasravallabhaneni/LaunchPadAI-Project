@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LaunchPad AI</title>
+</head>
+<body>
+
+<h1>🚀 LaunchPad AI</h1>
+
+<h2>Startup Idea Validator</h2>
+
+<textarea id="idea" rows="10" cols="60"
+placeholder="Enter your startup idea"></textarea>
+
+<br><br>
+
+<button onclick="analyzeIdea()">Analyze</button>
+
+<h2>Result</h2>
+
+<pre id="result"></pre>
+
+<script>
+function analyzeIdea(){
+
+    let idea=document.getElementById("idea").value;
+
+    fetch("/analyze",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            idea:idea
+        })
+    })
+
+    .then(response=>response.json())
+
+    .then(data=>{
+        document.getElementById("result").innerHTML=data.result;
+    })
+
+    .catch(error=>{
+        alert(error);
+    });
+
+}
+</script>
+
+</body>
+</html>
